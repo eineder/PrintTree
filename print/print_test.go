@@ -20,7 +20,7 @@ func getNodeContent(node *TreeNode) string {
 }
 
 func getExpectedOutput(testName string) string {
-	data, err := ioutil.ReadFile("expected_output.txt")
+	data, err := ioutil.ReadFile("print_test_expected.txt")
 	if err != nil {
 		panic(err)
 	}
