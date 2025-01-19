@@ -58,17 +58,11 @@ func printNode[T any](node *T, path []*pathNode[T], getChildren func(*T) []*T, g
 	var result strings.Builder
 	line := getLine(node, path)
 	isRoot := len(path) == 0
-	if !isRoot {
-		result.WriteString(line + "\n")
-		result.WriteString(line + "\n")
-		result.WriteString(line + "\n")
-		result.WriteString(line + "\n")
-	}
 	content := getNodeContent(node)
 	if isRoot {
-		result.WriteString("#### " + content + "\n")
+		result.WriteString(content + "\n")
 	} else {
-		result.WriteString(line + "#### " + content + "\n")
+		result.WriteString(line + content + "\n")
 	}
 
 	children := getChildren(node)
@@ -77,16 +71,11 @@ func printNode[T any](node *T, path []*pathNode[T], getChildren func(*T) []*T, g
 		return result.String()
 	}
 
-	hasRightHandSibling := false
-	if len(path) > 0 {
-		parent := path[len(path)-1]
-		parentNode := parent.Node
-		hasRightHandSibling = hasRightSibling(node, parentNode, getChildren)
-	}
-	pathNode := &pathNode[T]{Node: node, HasRightSibling: hasRightHandSibling}
-	newPath := append(path, pathNode)
 	for childIndex := 0; childIndex < len(children); childIndex++ {
 		child := children[childIndex]
+		hasRightHandSibling := childIndex < len(children)-1
+		pathNode := &pathNode[T]{Node: node, HasRightSibling: hasRightHandSibling}
+		newPath := append(path, pathNode)
 		result.WriteString(printNode(child, newPath, getChildren, getNodeContent))
 	}
 	return result.String()
@@ -96,18 +85,22 @@ func getLine[T any](node *T, path []*pathNode[T]) string {
 	line := ""
 	for i := 0; i < len(path); i++ {
 		pathNode := path[i]
-		lineFragment := getLineFragment(pathNode)
+		lineFragment := getLineFragment(pathNode, i == len(path)-1)
 		line += lineFragment
 	}
-	line += "   #"
 	return line
 }
 
-func getLineFragment[T any](node *pathNode[T]) string {
+func getLineFragment[T any](node *pathNode[T], isLast bool) string {
 	if node.HasRightSibling {
-		return "   #"
+		if isLast {
+			return "├── "
+		}
+		return "│   "
 	}
-
+	if isLast {
+		return "└── "
+	}
 	return "    "
 }
 

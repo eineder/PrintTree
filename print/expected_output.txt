@@ -1,40 +1,16 @@
 Single node:
-#### root
+root
 
 Two levels:
-#### root
-       #
-       #
-       #
-       #
-       ##### child1
-       #
-       #
-       #
-       #
-       ##### child2
+root
+├── child1
+└── child2
 
 Three levels:
-#### root
-       #
-       #
-       #
-       #
-       ##### child1
-       #   #
-       #   #
-       #   #
-       #   #
-       #   ##### grandchild1
-       #   #
-       #   #
-       #   #
-       #   #
-       #   ##### grandchild2
-       #
-       #
-       #
-       #
-       ##### child2
+root
+├── child1
+│   ├── grandchild1
+│   └── grandchild2
+└── child2
 
 End
