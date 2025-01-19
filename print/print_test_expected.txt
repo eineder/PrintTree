@@ -13,4 +13,46 @@ root
 │   └── grandchild2
 └── child2
 
+Unbalanced tree:
+root
+├── child1
+│   └── grandchild1
+└── child2
+    ├── grandchild2
+    └── grandchild3
+
+Wide tree:
+root
+├── child1
+├── child2
+├── child3
+└── child4
+
+Deep tree:
+root
+└── child1
+    └── child2
+        └── child3
+            └── child4
+                └── child5
+                    └── child6
+                        └── child7
+                            └── child8
+                                └── child9
+                                    └── child10
+
+Complex tree:
+root
+├── child1
+│   ├── grandchild1
+│   └── grandchild2
+│       ├── greatgrandchild1
+│       └── greatgrandchild2
+├── child2
+│   ├── grandchild3
+│   └── grandchild4
+│       ├── greatgrandchild3
+│       └── greatgrandchild4
+└── child3
+
 End

@@ -70,6 +70,128 @@ func TestFormat(t *testing.T) {
 				},
 			},
 		},
+		{
+			name: "Unbalanced tree",
+			root: &TreeNode{
+				Content: "root",
+				Children: []*TreeNode{
+					{
+						Content: "child1",
+						Children: []*TreeNode{
+							{Content: "grandchild1"},
+						},
+					},
+					{
+						Content: "child2",
+						Children: []*TreeNode{
+							{Content: "grandchild2"},
+							{Content: "grandchild3"},
+						},
+					},
+				},
+			},
+		},
+		{
+			name: "Wide tree",
+			root: &TreeNode{
+				Content: "root",
+				Children: []*TreeNode{
+					{Content: "child1"},
+					{Content: "child2"},
+					{Content: "child3"},
+					{Content: "child4"},
+				},
+			},
+		},
+		{
+			name: "Deep tree",
+			root: &TreeNode{
+				Content: "root",
+				Children: []*TreeNode{
+					{
+						Content: "child1",
+						Children: []*TreeNode{
+							{
+								Content: "child2",
+								Children: []*TreeNode{
+									{
+										Content: "child3",
+										Children: []*TreeNode{
+											{
+												Content: "child4",
+												Children: []*TreeNode{
+													{
+														Content: "child5",
+														Children: []*TreeNode{
+															{
+																Content: "child6",
+																Children: []*TreeNode{
+																	{
+																		Content: "child7",
+																		Children: []*TreeNode{
+																			{
+																				Content: "child8",
+																				Children: []*TreeNode{
+																					{
+																						Content: "child9",
+																						Children: []*TreeNode{
+																							{Content: "child10"},
+																						},
+																					},
+																				},
+																			},
+																		},
+																	},
+																},
+															},
+														},
+													},
+												},
+											},
+										},
+									},
+								},
+							},
+						},
+					},
+				},
+			},
+		},
+		{
+			name: "Complex tree",
+			root: &TreeNode{
+				Content: "root",
+				Children: []*TreeNode{
+					{
+						Content: "child1",
+						Children: []*TreeNode{
+							{Content: "grandchild1"},
+							{
+								Content: "grandchild2",
+								Children: []*TreeNode{
+									{Content: "greatgrandchild1"},
+									{Content: "greatgrandchild2"},
+								},
+							},
+						},
+					},
+					{
+						Content: "child2",
+						Children: []*TreeNode{
+							{Content: "grandchild3"},
+							{
+								Content: "grandchild4",
+								Children: []*TreeNode{
+									{Content: "greatgrandchild3"},
+									{Content: "greatgrandchild4"},
+								},
+							},
+						},
+					},
+					{Content: "child3"},
+				},
+			},
+		},
 	}
 
 	for _, tt := range tests {
