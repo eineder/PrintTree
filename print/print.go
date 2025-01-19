@@ -10,31 +10,71 @@ type pathNode[T any] struct {
 	HasRightSibling bool
 }
 
-func Print[T any](node *T, getChildren func(*T) []*T, getNodeContent func(*T) string) {
+// Generates a string representation of a tree structure starting from the given node.
+// It uses the provided getChildren function to retrieve the children of a node and the
+// getNodeContent function to get the content of a node.
+//
+// Type Parameters:
+//
+//	T - the type of the node
+//
+// Parameters:
+//
+//	node - the root node of the tree to format
+//	getChildren - a function that returns the children of a given node
+//	getNodeContent - a function that returns the content of a given node as a string
+//
+// Returns:
+//
+//	A string representation of the tree structure.
+func Format[T any](node *T, getChildren func(*T) []*T, getNodeContent func(*T) string) string {
 	var path []*pathNode[T] = []*pathNode[T]{}
-	printNode(node, path, getChildren, getNodeContent)
+	return printNode(node, path, getChildren, getNodeContent)
 }
 
-func printNode[T any](node *T, path []*pathNode[T], getChildren func(*T) []*T, getNodeContent func(*T) string) {
+// Prints a string representation of a tree structure starting from the given node.
+// It uses the provided getChildren function to retrieve the children of a node and the
+// getNodeContent function to get the content of a node.
+//
+// Type Parameters:
+//
+//	T - the type of the node
+//
+// Parameters:
+//
+//	node - the root node of the tree to format
+//	getChildren - a function that returns the children of a given node
+//	getNodeContent - a function that returns the content of a given node as a string
+//
+// Returns:
+//
+//	A string representation of the tree structure.
+func Print[T any](node *T, getChildren func(*T) []*T, getNodeContent func(*T) string) {
+	output := Format(node, getChildren, getNodeContent)
+	fmt.Print(output)
+}
+
+func printNode[T any](node *T, path []*pathNode[T], getChildren func(*T) []*T, getNodeContent func(*T) string) string {
+	var result strings.Builder
 	line := getLine(node, path)
 	isRoot := len(path) == 0
 	if !isRoot {
-		fmt.Println(line)
-		fmt.Println(line)
-		fmt.Println(line)
-		fmt.Println(line)
+		result.WriteString(line + "\n")
+		result.WriteString(line + "\n")
+		result.WriteString(line + "\n")
+		result.WriteString(line + "\n")
 	}
 	content := getNodeContent(node)
 	if isRoot {
-		fmt.Println("#### " + content)
+		result.WriteString("#### " + content + "\n")
 	} else {
-		fmt.Println(line + "#### " + content)
+		result.WriteString(line + "#### " + content + "\n")
 	}
 
 	children := getChildren(node)
 	isLeaf := len(children) == 0
 	if isLeaf {
-		return
+		return result.String()
 	}
 
 	hasRightHandSibling := false
@@ -47,8 +87,9 @@ func printNode[T any](node *T, path []*pathNode[T], getChildren func(*T) []*T, g
 	newPath := append(path, pathNode)
 	for childIndex := 0; childIndex < len(children); childIndex++ {
 		child := children[childIndex]
-		printNode(child, newPath, getChildren, getNodeContent)
+		result.WriteString(printNode(child, newPath, getChildren, getNodeContent))
 	}
+	return result.String()
 }
 
 func getLine[T any](node *T, path []*pathNode[T]) string {

@@ -1,6 +1,8 @@
 package main
 
-import print "github.com/eineder/printtree/print"
+import (
+	print "github.com/eineder/printtree/print"
+)
 
 type Node struct {
 	Content  string
