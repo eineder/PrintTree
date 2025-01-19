@@ -27,13 +27,13 @@ func main() {
 						}},
 				},
 			},
-			// {
-			// 	Content: "child2",
-			// 	Children: []*Node{
-			// 		{Content: "child2.1"},
-			// 		{Content: "child2.2"},
-			// 	},
-			// },
+			{
+				Content: "child2",
+				Children: []*Node{
+					{Content: "child2.1"},
+					{Content: "child2.2"},
+				},
+			},
 		},
 	}
 
@@ -45,5 +45,5 @@ func main() {
 		return node.Content
 	}
 
-	print.Print(&root, nil, getChildren, getNodeContent)
+	print.Print(&root, getChildren, getNodeContent)
 }
