@@ -1,6 +1,8 @@
 package main
 
 import (
+	"fmt"
+
 	print "github.com/eineder/printtree/print"
 )
 
@@ -47,5 +49,9 @@ func main() {
 		return node.Content
 	}
 
-	print.Print(&root, getChildren, getNodeContent)
+	fmt.Println("Tree with branch symbols:")
+	print.Print(&root, getChildren, getNodeContent, true)
+
+	fmt.Println("\nTree without branch symbols:")
+	print.Print(&root, getChildren, getNodeContent, false)
 }

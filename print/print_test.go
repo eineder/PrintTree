@@ -204,3 +204,33 @@ func TestFormat(t *testing.T) {
 		})
 	}
 }
+
+func TestFormatWithBranchSymbols(t *testing.T) {
+	tests := []struct {
+		name             string
+		root             *TreeNode
+		useBranchSymbols bool
+	}{
+		{
+			name:             "Single node",
+			root:             &TreeNode{Content: "root"},
+			useBranchSymbols: true,
+		},
+		{
+			name:             "Single node without symbols",
+			root:             &TreeNode{Content: "root"},
+			useBranchSymbols: false,
+		},
+		// Add more test cases as needed...
+	}
+
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			expected := getExpectedOutput(tt.name)
+			output := Format(tt.root, getChildren, getNodeContent, tt.useBranchSymbols)
+			if output != expected {
+				t.Errorf("expected %q, got %q", expected, output)
+			}
+		})
+	}
+}

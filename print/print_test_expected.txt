@@ -1,10 +1,18 @@
 Single node:
 root
 
+Single node without symbols:
+root
+
 Two levels:
 root
 ├── child1
 └── child2
+
+Two levels without symbols:
+root
+    child1
+    child2
 
 Three levels:
 root
